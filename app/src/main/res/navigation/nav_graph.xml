@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.androidapp.FirstFragment"
+        android:name="com.example.androidapp.messageList.MessageListFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
@@ -23,6 +23,17 @@
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ViewMessageFragment"
+        android:name="com.example.androidapp.viewMessage.ViewMessageFragment"
+        android:label="@string/view_message_fragment_label"
+        tools:layout="@layout/fragment_view_message">
+
+        <action
+            android:id="@+id/action_ViewMessageFragment_to_ItemListFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>
