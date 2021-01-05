@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.example.androidapp.R
+import com.example.androidapp.auth.AuthRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.fab
 import kotlinx.android.synthetic.main.fragment_first.*
 
 /**
@@ -25,11 +27,6 @@ import kotlinx.android.synthetic.main.fragment_first.*
 class MessageListFragment : Fragment() {
     private lateinit var itemListAdapter: MessageListAdapter
     private lateinit var itemsModel: MessageListViewModel
-    private var m_Text = ""
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +37,10 @@ class MessageListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        if (!AuthRepository.isLoggedIn) {
+            findNavController().navigate(R.id.LoginFragment)
+            return;
+        }
         setupItemList()
     }
 

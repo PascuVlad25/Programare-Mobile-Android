@@ -7,7 +7,7 @@
     tools:context=".SecondFragment">
 
     <TextView
-        android:id="@+id/fromName"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
@@ -15,21 +15,11 @@
         app:layout_constraintStart_toStartOf="parent"
         />
     <TextView
-        android:id="@+id/subject"
-        android:layout_margin="@dimen/text_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fromName"
-         />
-    <TextView
-        android:id="@+id/content"
+        android:id="@+id/description"
         android:layout_margin="@dimen/text_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/subject" />
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

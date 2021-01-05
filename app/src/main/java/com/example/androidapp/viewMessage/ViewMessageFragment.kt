@@ -11,34 +11,27 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.androidapp.R
-import com.example.androidapp.domain.Message
 import kotlinx.android.synthetic.main.fragment_view_message.*
 
 class ViewMessageFragment: Fragment() {
     companion object {
         const val MESSAGE_ID = "MESSAGE_ID"
-        const val MESSAGE_FROM_NAME = "MESSAGE_FROM_NAME"
-        const val MESSAGE_SUBJECT = "MESSAGE_SUBJECT"
-        const val MESSAGE_CONTENT = "MESSAGE_CONTENT"
-        const val MESSAGE_READ = "MESSAGE_READ"
+        const val MESSAGE_TITLE = "MESSAGE_TITLE"
+        const val MESSAGE_DESCRIPTION = "MESSAGE_DESCRIPTION"
     }
 
     private lateinit var viewModel : ViewMessageViewModel
     private var messageId: Int? = null
-    private var messageFromName: String? = null
-    private var messageSubject: String? = null
-    private var messageContent: String? = null
-    private var messageRead: Boolean? = null
+    private var eventTitle: String? = null
+    private var eventDescription: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             if (it.containsKey(MESSAGE_ID)) {
                 messageId = it.getInt(MESSAGE_ID)
-                messageFromName = it.getString(MESSAGE_FROM_NAME)
-                messageSubject = it.getString(MESSAGE_SUBJECT)
-                messageContent = it.getString(MESSAGE_CONTENT)
-                messageRead = it.getBoolean(MESSAGE_READ)
+                eventTitle = it.getString(MESSAGE_TITLE)
+                eventDescription = it.getString(MESSAGE_DESCRIPTION)
             }
         }
 
@@ -53,9 +46,8 @@ class ViewMessageFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fromName.text = "From: $messageFromName"
-        subject.text = messageSubject
-        content.text = messageContent
+        title.text = eventTitle
+        description.text = eventDescription
 //        if(!messageRead!!) {
 //
 //            messageId?.let { messageFromName?.let { it1 ->
@@ -76,18 +68,13 @@ class ViewMessageFragment: Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupViewModel()
-        if(!messageRead!!) {
-            viewModel.updateItem(Message(messageId!!, messageFromName!!, messageSubject!!, messageContent!!, true))
-        }
-
-
     }
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(this).get(ViewMessageViewModel::class.java)
-        viewModel.item.observe(viewLifecycleOwner) { item ->
-            fromName.text = item.fromName
-        }
+//        viewModel.item.observe(viewLifecycleOwner) { item ->
+//            fromName.text = item.fromName
+//        }
         viewModel.fetchingError.observe(viewLifecycleOwner) { exception ->
             if (exception != null) {
                 val message = "Fetching exception ${exception.message}"

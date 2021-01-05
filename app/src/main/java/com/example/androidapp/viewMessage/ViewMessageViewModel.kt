@@ -4,17 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidapp.domain.Message
+import com.example.androidapp.domain.Event
 import com.example.androidapp.domain.MessageRepository
 import kotlinx.coroutines.launch
 
 class ViewMessageViewModel : ViewModel() {
-    private val mutableItem = MutableLiveData<Message>().apply { value = Message(-1, "", "", "", false) }
+    private val mutableItem = MutableLiveData<Event>().apply { value = Event(-1, "", "") }
     private val mutableFetching = MutableLiveData<Boolean>().apply { value = false }
     private val mutableCompleted = MutableLiveData<Boolean>().apply { value = false }
     private val mutableException = MutableLiveData<Exception>().apply { value = null }
 
-    val item: LiveData<Message> = mutableItem
+    val item: LiveData<Event> = mutableItem
     val fetching: LiveData<Boolean> = mutableFetching
     val fetchingError: LiveData<Exception> = mutableException
     val completed: LiveData<Boolean> = mutableCompleted
@@ -33,7 +33,7 @@ class ViewMessageViewModel : ViewModel() {
         }
     }
 
-    fun updateItem(item: Message) {
+    fun updateItem(item: Event) {
         viewModelScope.launch {
             MessageRepository.update(item)
         }
